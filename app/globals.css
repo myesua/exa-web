@@ -1,26 +1,313 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* -font-family-monospace: "SuisseIntlMono", monospace;
+    --font-family-sans: "ABCDiatype", "Trebuchet MS", sans-serif;
+    --font-family-serif: "Arizona", Georgia, serif; */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --border: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --input: 0 0% 89.8%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --charcoal: #272626;
+    -font-family-monospace: 'SuisseIntlMono', monospace;
+    --font-family-sans: 'ABCDiatype', 'Trebuchet MS', sans-serif;
+    --font-family-serif: 'Arizona', Georgia, serif;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --border: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --input: 0 0% 14.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+    outline-color: hsl(var(--ring) / 0.5);
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    text-rendering: optimizeLegibility;
+    background-image: radial-gradient(
+        circle at 25% 25%,
+        hsl(var(--muted)) 2%,
+        transparent 50%
+      ),
+      radial-gradient(circle at 75% 75%, hsl(var(--muted)) 2%, transparent 50%);
+    background-attachment: fixed;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.btn-primary {
+  background: var(--charcoal);
+  color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: auto;
+  justify-content: center;
+  padding: 8px 16px;
+  transition: background-color 0.2s, color 0.2s;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-primary a {
+  font-family: var(--font-family-serif);
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.btn-secondary {
+  background: rgb(255, 255, 255);
+  color: rgb(55, 65, 81);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: auto;
+  justify-content: center;
+  padding: 8px 16px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  border-radius: 4px;
+  border: 1px solid rgb(229, 231, 235);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-secondary a {
+  font-family: var(--font-family-serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.font-serif {
+  font-family: var(--font-family-serif);
+}
+.font-sans {
+  font-family: var(--font-family-sans);
+}
+.font-monospace {
+  font-family: var(--font-family-monospace);
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .btn-gradient {
+    color: #fff;
+    box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.4);
+    background: linear-gradient(135deg, #f38020 0%, #e55a1b 100%);
+  }
+
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #f38020 0%, #e55a1b 50%, #d14615 100%);
+  }
+  .bg-gradient-rainbow {
+    background: linear-gradient(
+      135deg,
+      #f38020 0%,
+      #e55a1b 25%,
+      #d14615 50%,
+      #ff6b35 100%
+    );
+  }
+
+  .text-gradient {
+    background: linear-gradient(90deg, #f38020 0%, #e55a1b 50%, #d14615 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .glass {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+  .glass-dark {
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
+  .floating {
+    animation: float 2s ease-in-out infinite;
+  }
+  .rotating {
+    animation: rotate 2s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(-4px);
+    }
+    50% {
+      transform: translateY(4px);
+    }
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .shimmer-bg {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer-bg::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+    background-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent 100%
+    );
+    content: '';
+  }
+
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .center-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .text-display {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  @media (min-width: 640px) {
+    .text-display {
+      font-size: 3rem;
+      line-height: 1.1;
+    }
+  }
+  @media (min-width: 768px) {
+    .text-display {
+      font-size: 3.75rem;
+      line-height: 1.1;
+    }
+  }
+  @media (min-width: 1024px) {
+    .text-display {
+      font-size: 4.5rem;
+      line-height: 1.1;
+    }
+  }
+  .text-body {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: hsl(var(--muted-foreground));
+    line-height: 1.625;
+  }
+  @media (min-width: 640px) {
+    .text-body {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
+  }
 }
