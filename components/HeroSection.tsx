@@ -152,12 +152,12 @@ export function HeroSection() {
     }
   };
   return (
-    <div className="relative w-full bg-white overflow-hidden flex items-center justify-center mt-[48px]">
+    <div className="relative w-full bg-white flex items-center justify-center mt-[48px]">
       <div className="absolute inset-0 z-0">
         <DynamicSearchNetwork />
       </div>
-      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center p-4 !w-[879px] !h-[auto] my-0 mx-auto bg-white">
-        <div className="relative z-10 flex flex-col items-center text-center mt-6 w-full">
+      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center p-4 !w-[879px] !h-[auto] my-0 mx-auto bg-white my-[6rem]">
+        <div className="relative z-10 flex flex-col items-center text-center mt-6 w-full h-[415.99px]">
           <div className="absolute -z-1">
             <DynamicPulseOverlay />
           </div>
@@ -197,7 +197,14 @@ export function HeroSection() {
               placeholder="Find anything..."
               className="flex-grow p-3 text-md text-gray-700 focus:outline-none bg-transparent"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value?.trim() === '') {
+                  setSearchResults([]);
+                  setSearchQuery('');
+                  return;
+                }
+                setSearchQuery(e.target.value);
+              }}
             />
             <div className="flex justify-between items-center px-3 pb-4">
               <div className="flex text-sm font-medium bg-gray-100 cursor-pointer rounded-lg p-0.5">

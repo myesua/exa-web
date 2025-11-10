@@ -197,10 +197,8 @@ const FilterSidebar: React.FC<{
               )
             }
             className={cn(
-              'w-full text-left flex justify-between items-center px-3 py-2 rounded-md text-sm transition-colors duration-200',
-              activeFilters[filterType] === value
-                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300'
-                : 'hover:bg-accent hover:text-accent-foreground'
+              'w-full text-left flex justify-between items-center px-3 py-2 rounded-md text-sm transition-colors duration-200 cursor-pointer accent',
+              activeFilters[filterType] === value ? 'active' : ''
             )}
           >
             <span>{value}</span>
@@ -208,6 +206,7 @@ const FilterSidebar: React.FC<{
               variant={
                 activeFilters[filterType] === value ? 'default' : 'secondary'
               }
+              className="badge"
             >
               {count.toLocaleString()}
             </Badge>
@@ -256,7 +255,7 @@ const FilterSidebar: React.FC<{
   );
 };
 
-export function ExaSearchInterface() {
+export function SearchInterface() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingStep, setLoadingStep] = useState(0);
   const [simulatedDuration, setSimulatedDuration] = useState(SHORT_DELAY_MS);
@@ -314,10 +313,20 @@ export function ExaSearchInterface() {
   }, []);
 
   useEffect(() => {
-    const cleanup = startSearch(
-      simulatedDuration === SHORT_DELAY_MS ? SHORT_DELAY_MS : LONG_DELAY_MS
-    );
-    return cleanup;
+    const delay =
+      simulatedDuration === SHORT_DELAY_MS ? SHORT_DELAY_MS : LONG_DELAY_MS;
+    Promise.resolve().then(() => {
+      const cleanup = startSearch(delay);
+      (window as unknown as { __searchCleanup?: () => void }).__searchCleanup =
+        cleanup;
+    });
+    return () => {
+      const cleanup = (window as unknown as { __searchCleanup?: () => void })
+        .__searchCleanup;
+      if (cleanup) cleanup();
+      delete (window as unknown as { __searchCleanup?: () => void })
+        .__searchCleanup;
+    };
   }, [startSearch, simulatedDuration]);
 
   const filterCounts = useMemo(() => {
@@ -400,7 +409,7 @@ export function ExaSearchInterface() {
                 <Button
                   size="lg"
                   onClick={handleRunFullConstraint}
-                  className="mt-4"
+                  className="mt-4 btn-primary"
                 >
                   <Loader className="h-4 w-4 mr-2 animate-spin-slow" />
                   Run Full 10-Minute Constraint Simulation
